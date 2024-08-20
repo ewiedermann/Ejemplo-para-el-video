@@ -15,7 +15,23 @@ const SignUpForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("User Data:", userData);
-    // Aquí puedes agregar la lógica para enviar los datos al servidor
+
+    // Lógica para iniciar sesión con Google en Firebase
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        // Este código se ejecuta después de que el usuario se haya autenticado
+        const user = result.user;
+        console.log("User Info:", user);
+        // Puedes manejar el objeto de usuario como desees
+      })
+      .catch((error) => {
+        // Manejo de errores
+        console.error("Error during sign-in:", error);
+      });
   };
 
   return (

@@ -1,56 +1,64 @@
 import React, { useState } from "react";
 
-const AlumnoList = ({ alumnos, onEdit, onDelete }) => {
+const EscuelaList = ({ escuelas, onEdit, onDelete }) => {
   const [editIndex, setEditIndex] = useState(null);
-  const [editAlumno, setEditAlumno] = useState({
+  const [editEscuela, setEditEscuela] = useState({
     nombre: "",
-    apellido: "",
-    email: "",
-    telefono: "",
+    domicilio: "",
+    celular: "",
+    cue: "",
+    habilitar: "0",
   });
 
   const handleEditChange = (e) => {
     const { name, value } = e.target;
-    setEditAlumno({ ...editAlumno, [name]: value });
+    setEditEscuela({ ...editEscuela, [name]: value });
   };
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
-    onEdit(editIndex, editAlumno);
+    onEdit(editIndex, editEscuela);
     setEditIndex(null);
   };
 
   return (
     <ul>
-      {alumnos.map((alumno, index) => (
+      {escuela.map((escuela, index) => (
         <li key={index}>
           {editIndex === index ? (
             <form onSubmit={handleEditSubmit}>
               <input
                 type="text"
                 name="nombre"
-                value={editAlumno.nombre}
+                value={editEscuela.nombre}
                 onChange={handleEditChange}
                 required
               />
               <input
                 type="text"
-                name="apellido"
-                value={editAlumno.apellido}
-                onChange={handleEditChange}
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                value={editAlumno.email}
+                name="domicilio"
+                value={editEscuela.domicilio}
                 onChange={handleEditChange}
                 required
               />
               <input
                 type="text"
-                name="telefono"
-                value={editAlumno.telefono}
+                name="celular"
+                value={editEscuela.celular}
+                onChange={handleEditChange}
+                required
+              />
+              <input
+                type="text"
+                name="cue"
+                value={editEscuela.cue}
+                onChange={handleEditChange}
+                required
+              />
+              <input
+                type="text"
+                name="habilitar"
+                value={editHabilitar.habilitar}
                 onChange={handleEditChange}
                 required
               />
@@ -61,12 +69,12 @@ const AlumnoList = ({ alumnos, onEdit, onDelete }) => {
             </form>
           ) : (
             <div>
-              {alumno.nombre} {alumno.apellido} - {alumno.email} -{" "}
-              {alumno.telefono}
+              {escuela.nombre} {escuela.celular} {escuela.domicilio}{" "}
+              {escuela.cue}
               <button
                 onClick={() => {
                   setEditIndex(index);
-                  setEditAlumno(alumno);
+                  setEditEscuela(escuela);
                 }}
               >
                 Editar
@@ -80,4 +88,4 @@ const AlumnoList = ({ alumnos, onEdit, onDelete }) => {
   );
 };
 
-export default AlumnoList;
+export default EscuelaList;
