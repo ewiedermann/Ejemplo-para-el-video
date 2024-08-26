@@ -16,6 +16,7 @@ const useAlumno = () => {
       apellido,
       email,
       telefono,
+      desabilitar,
       created_at: firebase.firestore.FieldValue.serverTimestamp(),
     };
 
@@ -26,6 +27,32 @@ const useAlumno = () => {
       setApellido("");
       setEmail("");
       setTelefono("");
+      setDesabilitar("1");
+    } catch (error) {
+      console.error("Error al registrar al alumno: ", error);
+    }
+  };
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    const nuevoAlumno = {
+      nombre,
+      apellido,
+      email,
+      telefono,
+      desabilitar,
+      created_at: firebase.firestore.FieldValue.serverTimestamp(),
+    };
+
+    try {
+      await firebase.firestore().collection("alumnos").update(nuevoAlumno);
+      alert("Alumno registrado exitosamente");
+      setNombre("");
+      setApellido("");
+      setEmail("");
+      setTelefono("");
+      setDesabilitar("1");
     } catch (error) {
       console.error("Error al registrar al alumno: ", error);
     }
